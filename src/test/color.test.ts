@@ -1,8 +1,10 @@
 import * as assert from 'assert';
 
 
-import Color, { keyword2HexadecimalMap } from "../color";
+import Color from "../color";
+import keyword2HexadecimalMap from '../keyword2HexadecimalMap';
 
+// TODO: add situations in https://test.csswg.org/harness/test/css-color-3_dev/section to unit test case
 suite('test color model', () => {
   suite('convert from keyword token', () => {
     test('color transparent', () => {
@@ -15,6 +17,8 @@ suite('test color model', () => {
       assert.equal(color.sixDightHexadecimal, '#aabbcc');
       assert.equal(color.threeDightHexadecimal, '#abc');
       assert.equal(color.RGB, 'rgb(170, 187, 204)');
+      assert.equal(color.RGBA, 'rgba(170, 187, 204, 1)');
+      assert.equal(color.HSL, 'hsl(210, 25%, 73%)');
     });
 
     test('6-dight hexadecimal color #1', () => {
@@ -23,6 +27,7 @@ suite('test color model', () => {
       assert.equal(color.sixDightHexadecimal, '#abcdef');
       assert.equal(color.RGB, 'rgb(171, 205, 239)');
       assert.equal(color.RGBA, 'rgba(171, 205, 239, 1)');
+      assert.equal(color.HSL, 'hsl(210, 68%, 80%)');
     });
 
     test('6-dight hexadecimal color #2', () => {
@@ -31,6 +36,7 @@ suite('test color model', () => {
       assert.equal(color.sixDightHexadecimal, '#aabbcc');
       assert.equal(color.RGB, 'rgb(170, 187, 204)');
       assert.equal(color.RGBA, 'rgba(170, 187, 204, 1)');
+      assert.equal(color.HSL, 'hsl(210, 25%, 73%)');
     });
 
 
@@ -96,8 +102,51 @@ suite('test color model', () => {
 
     test('HSL color #1', () => {
       assert.deepEqual(
-        Color.fromFunctionalColorToken('hsl(264, 130%, 50%)'),
+        Color.fromFunctionalColorToken('hsl(240, 100%, -100%)'),
+        Color.fromKeywordColorToken('black')
+      );
+    });
+
+    test('HSL color #2', () => {
+      assert.deepEqual(
+        Color.fromFunctionalColorToken('hsl(240, 75%, -20%)'),
+        Color.fromKeywordColorToken('black')
+      );
+    });
+
+    test('HSL color #3', () => {
+      assert.deepEqual(
+        Color.fromFunctionalColorToken('hsl(240, 75%, 120%)'),
+        Color.fromKeywordColorToken('white')
+      );
+    });
+
+    test('HSL color #4', () => {
+
+      assert.deepEqual(
+        Color.fromFunctionalColorToken('hsl(240, 130%, 50%)'),
+        Color.fromFunctionalColorToken('rgb(0, 0, 255)')
+      );
+    });
+
+    test('HSL color #5', () => {
+      assert.deepEqual(
+        Color.fromFunctionalColorToken('hsl(264, 100%, 50%)'),
         Color.fromFunctionalColorToken('rgb(102, 0, 255)')
+      );
+    });
+
+    test('HSL color #6', () => {
+      assert.deepEqual(
+        Color.fromFunctionalColorToken('hsl(0, -50%, 40%)'),
+        Color.fromFunctionalColorToken('rgb(102, 102, 102)')
+      );
+    });
+
+    test('HSL color #7', () => {
+      assert.deepEqual(
+        Color.fromFunctionalColorToken('hsl(30, -50%, 60%)'),
+        Color.fromFunctionalColorToken('rgb(153, 153, 153)')
       );
     });
   });

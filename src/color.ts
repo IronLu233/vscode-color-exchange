@@ -1,36 +1,21 @@
+import keyword2HexadecimalMap from "./keyword2HexadecimalMap";
+
 const hexadecimalRegex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
 const canTransformToThreeDightHexadacimalRegex = /#(?:([0-9a-f])\1){3}/i;
 
-const functionalColorRegex = /((?:RGBA)|(?:RGB)|(?:HSL))\((?:\s*([\d\.%]+)\s*,\s*([\d\.%]+)\s*,\s*([\d\.%]+)\s*(?:,\s*([\d\.%]+)\s*)?)\)/i;
+const functionalColorRegex = /((?:RGBA)|(?:RGB)|(?:HSL))\((?:\s*(-?[\d\.%]+)\s*,\s*(-?[\d\.%]+)\s*,\s*(-?[\d\.%]+)\s*(?:,\s*(-?[\d\.%]+)\s*)?)\)/i;
 
-const RGBAVectorTokenRegex = /((?:\d+)|(?:\d*\.\d+))(%)?/;
+const RGBAVectorTokenRegex = /((?:\d*\.\d+)|(?:\d+))(%)?/;
+
 const HueVectorTokenRegex = /\d+/;
-const SaturationLightnessVectorTokenRegex = /(\d+)%/;
-export const keyword2HexadecimalMap: { [key: string]: string } = {
-  // https://www.w3.org/TR/2018/REC-css-color-3-20180619/#colorunits
-  // Basic color keywords
-  black: '#000000',
-  silver: '#C0C0C0',
-  gray: '#808080',
-  white: '#FFFFFF',
-  maroon: '#800000',
-  red: '#FF0000',
-  purple: '#800080',
-  fuchsia: '#FF00FF',
-  green: '#008000',
-  lime: '#00FF00',
-  olive: '#808000',
-  yellow: '#FFFF00',
-  navy: '#000080',
-  blue: '#0000FF',
-  teal: '#008080',
-  aqua: '#00FFFF'
+const SaturationLightnessVectorTokenRegex = /(-?\d+)%/;
 
-  // TODO: add extended color keywords
-};
 
 export function RGB2HSL(red: number, green: number, blue: number) {
-  const [max, min] = [red / 256, green / 256, blue / 256].reduce(
+  red /= 255;
+  green /= 255;
+  blue /= 255;
+  const [max, min] = [red, green, blue].reduce(
     ([prevMax, prevMin], current: number): [number, number] =>
       [
         Math.max(prevMax, current),
@@ -68,11 +53,13 @@ export function RGB2HSL(red: number, green: number, blue: number) {
 }
 
 export function HSL2RGB(hue: number, saturation: number, lightness: number) {
+  // normalize hue angle
+  hue = ((hue % 360) + 360) % 360;
   if (saturation === 0) {
-    return [lightness, lightness, lightness];
+    return [lightness, lightness, lightness].map(v => Math.floor(v * 255));
   }
 
-  const q = lightness < 1 / 2 ?
+  const q = lightness < 0.5 ?
     lightness * (1 + saturation) :
     lightness + saturation - (lightness * saturation);
   const p = 2 * lightness - q;
@@ -105,7 +92,7 @@ export function HSL2RGB(hue: number, saturation: number, lightness: number) {
         return p;
       }
     )
-    .map(tc => Math.round(tc * 256));
+    .map(tc => (parseFloat(tc.toFixed(8)) * 255) >> 0);
 }
 
 
@@ -197,8 +184,6 @@ export default class Color {
       if (!HueVectorTokenRegex.test(hueToken)) { return null; }
       let hueValue = parseInt(hueToken);
 
-      // normalize hue angle
-      hueValue = ((hueValue % 360) + 360) % 360;
       HSLVectors.push(hueValue);
 
       const matchArrays = [saturationToken, lightnessToken]
@@ -264,6 +249,7 @@ export default class Color {
     }
 
     this.setRGBAndRGBAColor();
+    this.setHSLColor();
     this.setThreeDightHexadecimal();
   }
 
@@ -273,6 +259,7 @@ export default class Color {
     this.setSixDightHexadecimal();
     this.setThreeDightHexadecimal();
     this.setRGBAndRGBAColor();
+    this.setHSLColor();
   }
 
   private initHSLColorValue([hue, saturation, lightness]: number[]) {
@@ -327,15 +314,18 @@ export default class Color {
   }
 
   private setHSLColor(...params: number[]) {
-    if (!params) {
+    if (params.length === 0) {
       const blue = this.hexadecimalValue & 0x0000FF;
       const green = (this.hexadecimalValue & 0x00FF00) >> 8;
       const red = (this.hexadecimalValue & 0xFF0000) >> 16;
       params = RGB2HSL(red, green, blue);
     }
 
-    const [hue, saturation, lightness] = params;
-    this._HSL = `hsl(${hue}, ${saturation}, ${lightness})`;
+    let [hue, saturation, lightness] = params;
+
+    // normalize hue angle
+    hue = ((hue % 360) + 360) % 360;
+    this._HSL = `hsl(${Math.round(hue)}, ${(saturation * 100).toFixed()}%, ${(lightness * 100).toFixed()}%)`;
 
   }
 
