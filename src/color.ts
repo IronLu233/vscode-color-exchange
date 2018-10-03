@@ -92,7 +92,7 @@ export function HSL2RGB(hue: number, saturation: number, lightness: number) {
         return p;
       }
     )
-    .map(tc => (parseFloat(tc.toFixed(8)) * 255) >> 0);
+    .map(tc => Math.round(parseFloat(tc.toFixed(8)) * 255));
 }
 
 
@@ -267,7 +267,7 @@ export default class Color {
     this.initRGBColorValue(HSL2RGB(hue, saturation, lightness));
   }
 
-  setSixDightHexadecimal() {
+  private setSixDightHexadecimal() {
     const rowHexadecimal = this.hexadecimalValue.toString(16);
     this._sixDightHexadecimal = `#${'0'.repeat(6 - rowHexadecimal.length)}${rowHexadecimal}`;
   }

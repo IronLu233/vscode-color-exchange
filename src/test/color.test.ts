@@ -70,6 +70,7 @@ suite('test color model', () => {
       assert.equal(color.percentRGB, 'rgb(100.0%, 100.0%, 100.0%)');
       assert.equal(color.percentRGBA, 'rgba(100.0%, 100.0%, 100.0%, 100.0%)');
       assert.equal(color.sixDightHexadecimal, '#ffffff');
+
     });
     test('RGB color #2', () => {
       const color = Color.fromFunctionalColorToken('rgb(50%, 50%, 50%)') as Color;
