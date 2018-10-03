@@ -44,6 +44,7 @@ export function activate(context: vscode.ExtensionContext) {
             const line = document.lineAt(startPosition);
 
             function pushModifyCommand(token: string, newText: string) {
+                if (token === newText) { return; }
                 if (newText) {
                     commands.push({
                         title: newText,

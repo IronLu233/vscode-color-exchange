@@ -2,12 +2,12 @@
     "name": "vscode-color-exchange",
     "displayName": "color-exchange",
     "description": "Exchange hexadecimal color, rgb color, hsl color etc.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publisher": "IronLu233",
-    "preview": true,
     "keywords": [
         "color",
-        "css"
+        "css",
+        "refactor"
     ],
     "repository": {
         "type": "git",
@@ -17,21 +17,16 @@
         "vscode": "^1.27.0"
     },
     "categories": [
-        "Other"
+        "Formatters",
+        "Snippets"
     ],
     "icon": "favicon.png",
     "activationEvents": [
-        "onCommand:extension.sayHello",
         "*"
     ],
     "main": "./out/extension",
     "contributes": {
-        "commands": [
-            {
-                "command": "extension.sayHello",
-                "title": "Hello World"
-            }
-        ]
+        "commands": []
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",

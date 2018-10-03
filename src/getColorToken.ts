@@ -29,11 +29,24 @@ export function getFunctionalColorToken(line: string, cursor: number): string {
   const suffixMatchArray = functionalColorTokenSuffixRegex.exec(suffix);
   let resultToken = '';
   if (prefixMatchArray) { // matched left parenthesis
+    if (!suffixMatchArray) { // all token string is on the left of cursor
+      const tokenContainsString = line.slice(
+        Math.max(prefixMatchArray.index - 4, 0),
+        prefixMatchArray.index + prefixMatchArray[0].length
+      );
+      const roughFunctionalColorMatchArray = roughFunctionalColorRegex.exec(tokenContainsString);
+
+      if (!roughFunctionalColorMatchArray) { return ''; }
+      const tokenStartIndex = Math.max(prefixMatchArray.index - 4, 0) + roughFunctionalColorMatchArray.index;
+      const tokenEndIndex = tokenStartIndex + roughFunctionalColorMatchArray[0].length;
+      return tokenEndIndex >= cursor ? roughFunctionalColorMatchArray[0] : '';
+    }
+
     resultToken += prefixMatchArray[0];
 
     const functionNotation = prefix.substr(Math.max(prefixMatchArray.index - 4, 0), prefixMatchArray.index);
-    let functionNotationMatchArray: RegExpExecArray | null;
-    if (functionNotationMatchArray = functionNotationRegex.exec(functionNotation)) {
+    const functionNotationMatchArray = functionNotationRegex.exec(functionNotation);
+    if (functionNotationMatchArray) {
       resultToken = functionNotationMatchArray[0] + resultToken;
     } else {
       // the word before left parenthesis is not 'rgb' or 'rgba' or 'hsl'
@@ -43,16 +56,19 @@ export function getFunctionalColorToken(line: string, cursor: number): string {
 
   }
   if (suffixMatchArray) { // matched right parenthesis
-    if (prefixMatchArray) { //if left parenthesis is in `prefixMatchArray`
-      resultToken += suffixMatchArray[0];
-    } else { // all token may in suffix array
+    if (!prefixMatchArray) {
       const tokenContainsString = line.substr(
         Math.max(0, prefix.length + suffixMatchArray.index - 4),
         prefix.length + suffixMatchArray.index + suffixMatchArray[0].length
       );
+
       const roughFunctionalColorMatchArray = roughFunctionalColorRegex.exec(tokenContainsString);
-      return roughFunctionalColorMatchArray ? roughFunctionalColorMatchArray[0] : '';
+      if (!roughFunctionalColorMatchArray) { return ''; }
+      const tokenStartIndex = Math.max(0, prefix.length + suffixMatchArray.index - 4) + roughFunctionalColorMatchArray.index;
+      return tokenStartIndex <= cursor ? roughFunctionalColorMatchArray[0] : '';
     }
+
+    resultToken += suffixMatchArray[0];
   }
 
   return resultToken;

@@ -97,6 +97,25 @@ suite('test `getFunctionalColorToken`', () => {
     testColorEqual('in real world situation when cursor is behind left parenthesis', realWordRGBColor, 22, RGBAColor);
     testColorEqual('in real world situation when cursor is in parentheses', realWordRGBColor, 24, RGBAColor);
     testColorEqual('in real world situation when cursor is behind right parenthesis', realWordRGBColor, 30, RGBAColor);
+
+    suite('can get color token only when cursor in color unit', () => {
+      const line = '  color: rgba(255, 170, 187, 1);';
+      for (let i = 0; i < line.slice(0, 9).length; i++) {
+        test(
+          `cursor not in color unit #${i + 1}`,
+          () => assert.equal(getFunctionalColorToken(line, i), '')
+        );
+      }
+
+      for (let i = 9; i < line.slice(9).length; i++) {
+        test(
+          `cursor in color unit #${i - 8}`,
+          () => assert.equal(getFunctionalColorToken(line, i), 'rgba(255, 170, 187, 1)')
+        );
+      }
+      test('cursor after `):`', () => assert.equal(getFunctionalColorToken(line, line.length), ''));
+
+    });
   });
 
   suite('HSL color token', () => {
@@ -115,6 +134,25 @@ suite('test `getFunctionalColorToken`', () => {
     testColorEqual('in real world situation when cursor is behind left parenthesis', realWordHSLColor, 22, HSLColor);
     testColorEqual('in real world situation when cursor is in parentheses', realWordHSLColor, 23, HSLColor);
     testColorEqual('in real world situation when cursor is behind right parenthesis', realWordHSLColor, 29, HSLColor);
+  });
+
+  suite('can get color token only when cursor in color unit', () => {
+    const line = '  color: rgb(255, 170, 187);';
+    for (let i = 0; i < line.slice(0, 9).length; i++) {
+      test(
+        `cursor not in color unit #${i + 1}`,
+        () => assert.equal(getFunctionalColorToken(line, i), '')
+      );
+    }
+
+    for (let i = 9; i < line.slice(9).length; i++) {
+      test(
+        `cursor in color unit #${i - 8}`,
+        () => assert.equal(getFunctionalColorToken(line, i), 'rgb(255, 170, 187)')
+      );
+    }
+    test('cursor after `):`', () => assert.equal(getFunctionalColorToken(line, line.length), ''));
+
   });
 
   suite('invalid color token', () => {
