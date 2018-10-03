@@ -4,12 +4,22 @@
     "description": "Exchange hexadecimal color, rgb color, hsl color etc.",
     "version": "1.0.0",
     "publisher": "IronLu233",
+    "preview": true,
+    "keywords": [
+        "color",
+        "css"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/IronLu233/vscode-color-exchange.git"
+    },
     "engines": {
         "vscode": "^1.27.0"
     },
     "categories": [
         "Other"
     ],
+    "icon": "favicon.png",
     "activationEvents": [
         "onCommand:extension.sayHello",
         "*"
@@ -40,6 +50,5 @@
     },
     "dependencies": {
         "collections": "^5.1.5"
-    },
-    "icon": "./favicon/png"
+    }
 }

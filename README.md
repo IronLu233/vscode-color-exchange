@@ -16,6 +16,7 @@ convert your color token to:
 ## TODOS
 - [ ] Add more unit test
 - [ ] Support convert other color to keyword color if available
+- [ ] Add CI
 - [ ] Add `codecov` for code coverage
 ## Known issues
 - Code action will appear at incorrect place, when cursor after `;` in `rgb(255, 255, 255);`
