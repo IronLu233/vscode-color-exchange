@@ -13,11 +13,11 @@ convert your color token to:
 `vs code` >=1.27.0
 
 ## TODOS
-- [ ] add more unit test
-- [ ] support convert other color to keyword color if available
-- [ ] add `codecov` for code coverage
+- [ ] Add more unit test
+- [ ] Support convert other color to keyword color if available
+- [ ] Add `codecov` for code coverage
 ## Known issues
-- code action show some incorrect place, when cursor after `;` in `rgb(255, 255, 255);`
+- Code action will appear at incorrect place, when cursor after `;` in `rgb(255, 255, 255);`
 
 ## Release Notes
 ### 1.0.0

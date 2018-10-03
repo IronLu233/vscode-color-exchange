@@ -2,7 +2,7 @@
     "name": "vscode-color-exchange",
     "displayName": "color-exchange",
     "description": "Exchange hexadecimal color, rgb color, hsl color etc.",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "publisher": "IronLu233",
     "engines": {
         "vscode": "^1.27.0"
@@ -40,5 +40,6 @@
     },
     "dependencies": {
         "collections": "^5.1.5"
-    }
+    },
+    "icon": "./favicon/png"
 }
