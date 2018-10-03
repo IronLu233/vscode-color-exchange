@@ -8,7 +8,8 @@ convert your color token to:
 - HSL
 - 6-dight hexadecimal and 3-dight hexadecimal(if available)
 
-![](./imgs/example.gif)
+![image](https://user-images.githubusercontent.com/20639676/46390381-18888280-c70a-11e8-9c3f-e28710647270.png)
+
 ## Requirements
 `vs code` >=1.27.0
 
