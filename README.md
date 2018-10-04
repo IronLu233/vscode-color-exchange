@@ -14,7 +14,7 @@ convert your color token to:
 ## Installation
 In order to install an extension you need to launch the Command Pallete (Ctrl + Shift + P or Cmd + Shift + P) and type Extensions. There you have either the option to show the already installed snippets or install new ones. Search for `color-exchange` and install it.
 
-## How to use
+## Usage
 After installation and reload VS code, open any file and move the cursor into color unit, click the lightbulbs in your editor or Use shortcut: `Cmd + .`(`Ctrl + .` in windows), then select your new color unit.
 
 ## Requirements
@@ -22,13 +22,15 @@ After installation and reload VS code, open any file and move the cursor into co
 
 ## TODOS
 - [ ] Add more unit test
-- [ ] Support convert other color to keyword color if available
-- [ ] Add CI
-- [ ] Add `codecov` for code coverage
+- [x] Support convert other color to keyword color if available
+- [x] Add CI
+- [x] Add `codecov` for code coverage
 <!-- ## Known issues
 - Code action will appear at incorrect place, when cursor after `;` in `rgb(255, 255, 255);` -->
 
 ## Release Notes
+### 1.1.0
+- Add support for convert to keyword color if available
 
 ### 1.0.1
 - Fix code action incorrect appeared when cursor in the tail of line.

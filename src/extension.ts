@@ -80,7 +80,8 @@ export function activate(context: vscode.ExtensionContext) {
                 percentRGB,
                 RGBA,
                 percentRGBA,
-                HSL
+                HSL,
+                keyword
             } = color;
             [
                 threeDightHexadecimal,
@@ -93,7 +94,8 @@ export function activate(context: vscode.ExtensionContext) {
                 percentRGB,
                 RGBA,
                 percentRGBA,
-                HSL
+                HSL,
+                keyword
             ].forEach(colorUnit => pushModifyCommand(token, colorUnit));
 
             return commands;

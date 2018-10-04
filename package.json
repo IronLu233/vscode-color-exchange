@@ -2,7 +2,7 @@
     "name": "vscode-color-exchange",
     "displayName": "color-exchange",
     "description": "Exchange hexadecimal color, rgb color, hsl color etc.",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "publisher": "IronLu233",
     "keywords": [
         "color",

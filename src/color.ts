@@ -1,4 +1,5 @@
 import keyword2HexadecimalMap from "./keyword2HexadecimalMap";
+import hexadecimal2Keyword from "./hexadecimal2KeywordMap";
 
 const hexadecimalRegex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
 const canTransformToThreeDightHexadacimalRegex = /#(?:([0-9a-f])\1){3}/i;
@@ -374,5 +375,9 @@ export default class Color {
 
   get transparent() {
     return this.alpha === 0 ? 'transparent' : '';
+  }
+
+  get keyword() {
+    return hexadecimal2Keyword[this._sixDightHexadecimal];
   }
 }
