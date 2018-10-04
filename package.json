@@ -24,7 +24,7 @@
     "activationEvents": [
         "*"
     ],
-    "main": "./out/extension",
+    "main": "./out/src/extension",
     "contributes": {
         "commands": []
     },
@@ -39,6 +39,12 @@
         "@types/collections": "^5.0.0",
         "@types/mocha": "^2.2.42",
         "@types/node": "^8.10.25",
+        "@types/glob": "^5.0.30",
+        "decache": "^4.1.0",
+        "glob": "^7.1.1",
+        "istanbul": "^0.4.5",
+        "mocha": "^3.2.0",
+        "remap-istanbul": "^0.8.4",
         "tslint": "^5.8.0",
         "typescript": "^2.6.1",
         "vscode": "^1.1.21"

@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 
 
-import Color from "../color";
-import keyword2HexadecimalMap from '../keyword2HexadecimalMap';
+import Color from "../src/color";
+import keyword2HexadecimalMap from '../src/keyword2HexadecimalMap';
 
 // TODO: add situations in https://test.csswg.org/harness/test/css-color-3_dev/section to unit test case
 suite('test color model', () => {

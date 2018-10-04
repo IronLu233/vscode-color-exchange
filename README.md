@@ -1,7 +1,7 @@
 # vscode-color-exchange README
 ![Build Status](https://travis-ci.org/IronLu233/vscode-color-exchange.svg?branch=master)
+[![codecov](https://codecov.io/gh/IronLu233/vscode-color-exchange/branch/master/graph/badge.svg)](https://codecov.io/gh/IronLu233/vscode-color-exchange)
 
-(https://travis-ci.org/IronLu233/vscode-color-exchange)
 A VS code extension uses `VS code`'s code action for refactoring your color unit code. It can transform your color unit to RGB, RGBA, etc.
 
 ## Features

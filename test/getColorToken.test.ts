@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { getKeywordColorToken, getFunctionalColorToken } from '../getColorToken';
+import { getKeywordColorToken, getFunctionalColorToken } from '../src/getColorToken';
 
 suite('test `getKeywordColorToken`', () => {
   const testColorEqual = (exception: string, line: string, cursor: number, excepted: string) => {

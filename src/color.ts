@@ -177,7 +177,7 @@ export default class Color {
       return new Color(RGBVectors, alphaValue, 'rgb');
     } else if (schema === 'hsl') {
       const [hueToken, saturationToken, lightnessToken] = vectorTokens;
-      const HSLVectors = [];
+      const HSLVectors: number[] = [];
 
       // use `test` instead of `exec`, matched string is our expected
 
