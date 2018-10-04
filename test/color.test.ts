@@ -3,6 +3,7 @@ import * as assert from 'assert';
 
 import Color from "../src/color";
 import keyword2HexadecimalMap from '../src/keyword2HexadecimalMap';
+import hexadecimal2Keyword from '../src/hexadecimal2KeywordMap';
 
 // TODO: add situations in https://test.csswg.org/harness/test/css-color-3_dev/section to unit test case
 suite('test color model', () => {
@@ -39,7 +40,13 @@ suite('test color model', () => {
       assert.equal(color.HSL, 'hsl(210, 25%, 73%)');
     });
 
-
+    test('convert to keyword color unit', () => {
+      Object.keys(hexadecimal2Keyword).forEach(hexadecimal => {
+        const color = Color.fromKeywordColorToken(hexadecimal);
+        assert.notEqual(color, null);
+        assert.equal((color as Color).keyword, hexadecimal2Keyword[hexadecimal]);
+      });
+    });
 
     test('valid keyword color', () => {
       Object.keys(keyword2HexadecimalMap).forEach(key => {
